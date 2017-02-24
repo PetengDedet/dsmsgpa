@@ -355,8 +355,8 @@ class PersonaliaController extends Controller
         $organisasi->nama_organisasi = $request->nama_organisasi;
         $organisasi->jabatan = $request->peran;
 
-        $organisasi->sejak = (null != $request->masa_berperan_sejak) ? \App\Library\Datify::toDate($request->masa_berperan_sejak) : null;
-        $organisasi->hingga = (null != $request->masa_berperan_hingga) ? \App\Library\Datify::toDate($request->masa_berperan_hingga) : null;
+        $organisasi->sejak = (null != $request->masa_peran_sejak) ? \App\Library\Datify::toDate($request->masa_peran_sejak) : null;
+        $organisasi->hingga = (null != $request->masa_peran_hingga) ? \App\Library\Datify::toDate($request->masa_peran_hingga) : null;
 
         if (!$organisasi->save()) {
             $resp['message'] = 'Gagal menyimpan ke database';

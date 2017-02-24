@@ -29,8 +29,7 @@ class PersonaliaDataTable extends DataTable
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                 <li><a href="' . url('personalia/lihat/' . $personalia->hashid) . '"><i class="fa fa-eye"></i> Lihat</a></li>
-                                <li><a href="' . url('personalia/sunting/' . $personalia->hashid) . '"><i class="fa fa-pencil"></i> Sunting</a></li>
-                                <li><a href="' . url('personalia/hapus/' . $personalia->hashid) . '" onclick="return confirm(\'Yakin akan menghapus user ini?\')"><i class="fa fa-trash-o"></i> Hapus</a></li>
+                                <li><a href="' . url('personalia/hapus/' . $personalia->hashid) . '" onclick="return confirm(\'Yakin akan menghapus personalia ini?\')"><i class="fa fa-trash-o"></i> Hapus</a></li>
                                 <li><a href="' . url('personalia/cetak/' . $personalia->hashid) . '"><i class="fa fa-print"></i> Cetak</a></li>
                             </ul>
                         </div>';

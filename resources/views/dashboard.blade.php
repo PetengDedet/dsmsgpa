@@ -17,11 +17,6 @@
         	</ol>
         </div>
         <div class="box-body">
-            <form action="{{url('riwayat')}}" class="dropzone">
-                <div class="fallback">
-                    <input name="file" type="file" class="riwayat" multiple />
-                </div>
-            </form>
         </div>
     </div>
 @endsection
@@ -29,6 +24,5 @@
 @section('js')
 <script type="text/javascript" src="{{asset('js/dropzone.js')}}"></script>
 <script type="text/javascript">
-    $(".riwayat").dropzone({ url: "{{url('dashboard')}}" });
 </script>
 @endsection

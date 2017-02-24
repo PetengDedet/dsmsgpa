@@ -286,7 +286,7 @@
                                             <input type="radio" name="jenis_organisasi" class="jenis_organisasi" value="non_profit" autocomplete="off"><i class="fa fa-bell-o"></i><br>Non Profit
                                         </label>
                                         <label class="btn btn-default">
-                                            <input type="radio" name="jenis_organisasi" class="jenis_organisasi" value="prmerintahan" autocomplete="off"><i class="fa fa-bell-slash"></i><br>Pemerintahan
+                                            <input type="radio" name="jenis_organisasi" class="jenis_organisasi" value="pemerintahan" autocomplete="off"><i class="fa fa-bell-slash"></i><br>Pemerintahan
                                         </label>
                                     </div>
                                 </div>
@@ -307,9 +307,9 @@
                                 <label for="masa_peran" class="control-label col-md-3">Masa Berperan</label>
                                 <div class="col-md-6">
                                     <div class="input-daterange input-group" id="masa_peran">
-                                        <input type="text" class="form-control" name="masa_berperan_sejak">
+                                        <input type="text" class="form-control" name="masa_peran_sejak">
                                         <span class="input-group-addon">s/d</span>
-                                        <input type="text" class="form-control" name="masa_berperan_hingga">
+                                        <input type="text" class="form-control" name="masa_peran_hingga">
                                     </div>
                                 </div>
                             </div>
@@ -345,10 +345,10 @@
 <script type="text/javascript" src="{{asset('js/dropzone.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        var d = new Date('{{date('D M d Y H:i:s 0')}}');
-        var month = d.getMonth()+1;
-        var day = d.getDate();
-        var year = d.getFullYear();
+        let d = new Date('{{date('D M d Y H:i:s 0')}}');
+        let month = d.getMonth()+1;
+        let day = d.getDate();
+        let year = d.getFullYear();
         // console.log(d);
         $('#tglLahirPicker').datepicker({
             format : 'dd MM yyyy',
@@ -418,7 +418,7 @@
                 return false;
             }
 
-            var data = $('#dataDiriForm').serialize();
+            let data = $('#dataDiriForm').serialize();
             $.ajax({
                 url: '{{url('personalia/kirimdatadiri')}}',
                 type: 'POST',
@@ -461,16 +461,16 @@
 
     //Pendidikan
    function sendRiwayatPendidikan(obj) {
-        var form = obj.parent().parent().parent().parent();
+        let form = obj.parent().parent().parent().parent();
         //console.log(form.serialize());
-        var nama_lembaga_pendidikan = form.find('input[name="nama_lembaga_pendidikan"]');
+        let nama_lembaga_pendidikan = form.find('input[name="nama_lembaga_pendidikan"]');
         if (nama_lembaga_pendidikan.val().length < 1) {
             notie.alert('error', 'Nama Lembaga Pendidikan tidak boleh kosong', 2);
             nama_lembaga_pendidikan.focus().addClass('animated shake');
             return false;
         }
 
-        var data = form.serialize();
+        let data = form.serialize();
         $.ajax({
             url: '{{url('personalia/kirimriwayatpendidikan')}}',
             type: 'POST',
@@ -490,7 +490,7 @@
                     form.find('.simpan_pendidikan').prop('disabled', false).remove();
 
                     //
-                    var pender="";
+                    let pender="";
                     pender += "<form class=\"form-horizontal\" enctype=\"multipart\/form-data\" method=\"post\" action=\"\">";
                     pender += "    <div class=\"form-group\">";
                     pender += "        <label for=\"jenis_pendidikan\" class=\"control-label col-md-3\">Jenis Pendidikan<\/label>";
@@ -599,16 +599,16 @@
     }
 
     function sendKontak(obj) {
-        var form = obj.parent().parent().parent().parent();
+        let form = obj.parent().parent().parent().parent();
         //console.log(form.serialize());
-        var kontak_value = form.find('input[name="kontak_value"]');
+        let kontak_value = form.find('input[name="kontak_value"]');
         if (kontak_value.val().length < 1) {
             notie.alert('error', 'Value Kontak tidak boleh kosong', 2);
             kontak_value.focus().addClass('animated shake');
             return false;
         }
 
-        var data = form.serialize();
+        let data = form.serialize();
         $.ajax({
             url: '{{url('personalia/kirimkontak')}}',
             type: 'POST',
@@ -624,7 +624,7 @@
                     form.find('.simpan_kontak').prop('disabled', false).remove();
 
 
-                    var pender="";
+                    let pender="";
                         pender += "<form class=\"form-horizontal\" id=\"formKontak\" enctype=\"multipart\/form-data\" method=\"post\" action=\"\">";
                         pender += "    <div class=\"form-group\">";
                         pender += "        <label for=\"jenis_kontak\" class=\"control-label col-md-3\">Jenis Kontak<\/label>";
@@ -710,16 +710,16 @@
 
     //Alamat
     function sendAlamat(obj) {
-        var form = obj.parent().parent().parent().parent();
+        let form = obj.parent().parent().parent().parent();
         //console.log(form.serialize());
-        var alamat = form.find('textarea[name="alamat"]');
+        let alamat = form.find('textarea[name="alamat"]');
         if (alamat.val().length < 1) {
             notie.alert('error', 'Alamat tidak boleh kosong', 2);
             alamat.focus().addClass('animated shake');
             return false;
         }
 
-        var data = form.serialize();
+        let data = form.serialize();
         $.ajax({
             url: '{{url('personalia/kirimalamat')}}',
             type: 'POST',
@@ -733,7 +733,7 @@
                 if (resp.status) {
                     form.find('.hapus_alamat').prop('disabled', false).attr('onclick', 'hapusAlamat(\''+ resp.data.hashid +'\',$(this))');
                     form.find('.simpan_alamat').prop('disabled', false).remove();
-                    var strVar="";
+                    let strVar="";
                         strVar += "<form class=\"form-horizontal\" method=\"post\" action=\"\">";
                         strVar += "    <div class=\"form-group\">";
                         strVar += "        <label for=\"alamat\" class=\"control-label col-md-3\">Alamat<\/label>";
@@ -797,10 +797,10 @@
     }
 
     function sendOrganisasi(obj) {
-        var form = obj.parent().parent().parent().parent();
+        let form = obj.parent().parent().parent().parent();
         //console.log(form.serialize());
-        var nama_organisasi = form.find('input[name="nama_organisasi"]');
-        var peran = form.find('input[name="peran"]');
+        let nama_organisasi = form.find('input[name="nama_organisasi"]');
+        let peran = form.find('input[name="peran"]');
 
         if (nama_organisasi.val().length < 1) {
             notie.alert('error', 'Nama Organisasi tidak boleh kosong', 2);
@@ -814,7 +814,7 @@
             return false;
         }
 
-        var data = form.serialize();
+        let data = form.serialize();
         $.ajax({
             url: '{{url('personalia/kirimorganisasi')}}',
             type: 'POST',
@@ -824,15 +824,15 @@
                 $('.simpan_organisasi').prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Loading...');
                 form.find('input[name="nama_organisasi"]').prop('readonly', true);
                 form.find('input[name="peran"]').prop('readonly', true);
-                form.find('input[name="masa_berperan_sejak"]').prop('readonly', true);
-                form.find('input[name="masa_berperan_hingga"]').prop('readonly', true);
+                form.find('input[name="masa_peran_sejak"]').prop('readonly', true);
+                form.find('input[name="masa_peran_hingga"]').prop('readonly', true);
             },
             success: function(resp) {
                 if (resp.status) {
-                    form.find('.hapus_organisasi').prop('disabled', false).attr('onclick', 'hapusPendidikan(\''+ resp.data.hashid +'\',$(this))');
+                    form.find('.hapus_organisasi').prop('disabled', false).attr('onclick', 'hapusOrganisasi(\''+ resp.data.hashid +'\',$(this))');
                     form.find('.simpan_organisasi').prop('disabled', false).remove();
 
-                    var pender="";
+                    let pender="";
                         pender += "<form class=\"form-horizontal\" id=\"formOrganisasi\" enctype=\"multipart\/form-data\" method=\"post\" action=\"\">";
                         pender += "    <div class=\"form-group\">";
                         pender += "        <label for=\"jenis_organisasi\" class=\"control-label col-md-3\">Jenis Organisasi<\/label>";
@@ -845,7 +845,7 @@
                         pender += "                    <input type=\"radio\" name=\"jenis_organisasi\" class=\"jenis_organisasi\" value=\"non_profit\" autocomplete=\"off\"><i class=\"fa fa-bell-o\"><\/i><br>Non Profit";
                         pender += "                <\/label>";
                         pender += "                <label class=\"btn btn-default\">";
-                        pender += "                    <input type=\"radio\" name=\"jenis_organisasi\" class=\"jenis_organisasi\" value=\"prmerintahan\" autocomplete=\"off\"><i class=\"fa fa-bell-slash\"><\/i><br>Pemerintahan";
+                        pender += "                    <input type=\"radio\" name=\"jenis_organisasi\" class=\"jenis_organisasi\" value=\"pemerintahan\" autocomplete=\"off\"><i class=\"fa fa-bell-slash\"><\/i><br>Pemerintahan";
                         pender += "                <\/label>";
                         pender += "            <\/div>";
                         pender += "        <\/div>";
@@ -875,7 +875,7 @@
                         pender += "    <div class=\"form-group\">";
                         pender += "        <div class=\"col-md-3\">";
                         pender += "            <input type=\"hidden\" name=\"_token\" value=\"{{csrf_token()}}\">";
-                        pender += "            <input type=\"hidden\" name=\"personalia_id\" class=\"personalia_id\" value=\"\">";
+                        pender += "            <input type=\"hidden\" name=\"personalia_id\" class=\"personalia_id\" value=\"" + resp.hashid + "\">";
                         pender += "        <\/div>";
                         pender += "        <div class=\"col-md-6\">";
                         pender += "            <div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\" id=\"tombol_1\">";
@@ -900,8 +900,8 @@
                     $('.simpan_organisasi').prop('disabled', false).html('<i class="fa fa-save"></i> Simpan');
                     form.find('input[name="nama_organisasi"]').prop('readonly', false);
                     form.find('input[name="peran"]').prop('readonly', false);
-                    form.find('input[name="masa_berperan_sejak"]').prop('readonly', false);
-                    form.find('input[name="masa_berperan_hingga"]').prop('readonly', false);
+                    form.find('input[name="masa_peran_sejak"]').prop('readonly', false);
+                    form.find('input[name="masa_peran_hingga"]').prop('readonly', false);
                     notie.alert('error', resp, 3);
                 }
             },
@@ -909,8 +909,8 @@
                 $('.simpan_organisasi').prop('disabled', false).html('<i class="fa fa-save"></i> Simpan');
                 form.find('input[name="nama_organisasi"]').prop('readonly', false);
                 form.find('input[name="peran"]').prop('readonly', false);
-                form.find('input[name="masa_berperan_sejak"]').prop('readonly', false);
-                form.find('input[name="masa_berperan_hingga"]').prop('readonly', false);
+                form.find('input[name="masa_peran_sejak"]').prop('readonly', false);
+                form.find('input[name="masa_peran_hingga"]').prop('readonly', false);
                 notie.alert('error', resp, 3);
             }
         });
