@@ -342,7 +342,7 @@
 <script type="text/javascript" src="{{asset('js/wizard.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap-datepicker.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap-datepicker.id.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/dropzone.js')}}"></script>
+{{-- <script type="text/javascript" src="{{asset('js/dropzone.js')}}"></script> --}}
 <script type="text/javascript">
     $(document).ready(function(){
         let d = new Date('{{date('D M d Y H:i:s 0')}}');

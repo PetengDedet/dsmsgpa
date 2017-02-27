@@ -16,6 +16,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
+    <link rel="stylesheet" type="text/css" href="{{asset('css/select2.min.css')}}">
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/AdminLTE.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/notie.css') }}">
     <link rel="stylesheet" href="{{ asset('css/animate.min.css') }}">
@@ -32,7 +33,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="skin-purple-light  layout-top-nav">
+<body class="skin-purple-light  layout-fixed">
 
 @yield('body')
 

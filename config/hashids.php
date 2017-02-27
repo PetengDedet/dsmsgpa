@@ -85,7 +85,11 @@ return [
             'length' => '6',
             'alphabet' => 'RIWAYTOGNS1234567890',
         ],
-
+        'pelantikan' => [
+            'salt' => 'Aliflammim',
+            'length' => '10',
+            'alphabet' => 'PELANTIK1234567890',
+        ],
     ],
 
 ];

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use Hash;
 use Hashids;
+use Auth;
 use Session;
 use App\DataTables\PersonaliaDataTable;
 
@@ -20,12 +21,12 @@ class PersonaliaController extends Controller
     //
     public function index(PersonaliaDataTable $dataTable)
     {
-    	return $dataTable->render('personalia.index');
+        return $dataTable->render('personalia.index');
     }
 
     public function create(Request $request)
     {
-    	return view('personalia.create');
+        return view('personalia.create');
     }
 
     public function kirimDataDiri(Request $request)
@@ -239,7 +240,7 @@ class PersonaliaController extends Controller
 
         if (! $kontak) {
             $resp['message'] = 'Kontak tidak valid';
-            return response()->json($resp,200);
+            return response()->json($resp, 200);
         }
 
         if ($kontak->delete()) {
@@ -247,7 +248,7 @@ class PersonaliaController extends Controller
             $resp['message'] = 'Berhasil menghapus kontak';
         }
          
-        return response()->json($resp,200);
+        return response()->json($resp, 200);
     }
 
     public function kirimAlamat(Request $request)
@@ -726,5 +727,43 @@ class PersonaliaController extends Controller
         $resp['message'] = 'Berhasil menyimpan';
 
         return response()->json($resp,200);
+    }
+
+    public function getJson(Request $r)
+    {
+        $resp = [
+            'status' => false,
+            'results' => [],
+            'message' => ''
+        ];
+
+        if (!Auth::check()) {
+            return response()->json($resp, 401);
+        }
+
+        if (null !== $r->q AND $r->q != '') {    
+            $p = Personalia::where('nomor', 'LIKE', '%' . $r->q . '%')
+                    ->orWhere('nama', 'LIKE', '%' . $r->q . '%')
+                    ->orWhere('alias', 'LIKE', '%' . $r->q . '%')
+                    ->take(5)
+                    ->get();
+
+            if (count($p) > 0) {
+                $resp['status'] = true;
+        
+                foreach ($p as $k => $v) {
+                    $alias = ($v->alias != null) ? ' (' . $v->alias . ')' : '';
+
+                    $resp['results'][] = [
+                        'id' => $v->hashid,
+                        'text' => $v->nama . $alias . ' - ' . $v->nomor 
+                    ];
+                }
+            }else{
+                $resp['message'] = 'Personalia tidak ditemukan';
+            }
+        }
+
+        return response()->json($resp, 200);
     }
 }

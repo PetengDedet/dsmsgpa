@@ -13,6 +13,10 @@
 
 Route::get('test', function()
 {
+	$p = Carbon\Carbon::parse(\App\Pelantikan::first()->sejak);
+	$t = Carbon\Carbon::parse(\App\Pelantikan::first()->hingga);
+	$dur = $p->diffInDays($t);
+	return $dur;
 	//dd(storage_path('local'));
 });
 
@@ -38,11 +42,12 @@ Route::get('master', function()
 	return view('layouts.master');
 });
 
+Route::get('personalia/getJSON', ['as' => 'personalia.getJSON', 'uses' => 'PersonaliaController@getJson']);
+
 Route::group(['middleware' => 'Admin'], function(){
     Route::get('/dashboard', function()
     {
-        // return '<iframe id="player" src="http://rivoplus.me.la/gato.html" width="735" height="480" frameborder="0" scrolling="no"></iframe>';
-        return view('dashboard');
+    	return view('dashboard');
     });
 //USER
 	Route::get('master/user', 				['as' => 'master.user', 		'uses' => 'UserController@index']);
@@ -68,26 +73,31 @@ Route::group(['middleware' => 'Admin'], function(){
 	Route::post('master/jabatan/create', 		['as' => 'master.jabatan.create.post', 	'uses' => 'JabatanController@store']);
 
 //PERSONALIA
- 	Route::get('personalia', 				['as' => 'personalia', 					'uses' => 'PersonaliaController@index']);
- 	Route::get('personalia/create', 		['as' => 'personalia.create', 			'uses' => 'PersonaliaController@create']);
- 	Route::get('personalia/lihat/{hashid}', ['as' => 'personalia.show', 			'uses' => 'PersonaliaController@show']);
- 	Route::post('personalia/kirimdatadiri', ['as' => 'personalia.kirimdatadiri', 	'uses' => 'PersonaliaController@kirimDataDiri']);
+ 	Route::get('personalia', 						 ['as' => 'personalia', 						'uses' => 'PersonaliaController@index']);
+ 	Route::get('personalia/create', 				 ['as' => 'personalia.create', 					'uses' => 'PersonaliaController@create']);
+ 	Route::get('personalia/lihat/{hashid}', 		 ['as' => 'personalia.show', 					'uses' => 'PersonaliaController@show']);
+ 	Route::post('personalia/kirimdatadiri', 		 ['as' => 'personalia.kirimdatadiri', 			'uses' => 'PersonaliaController@kirimDataDiri']);
  	Route::post('personalia/kirimriwayatpendidikan', ['as' => 'personalia.kirimriwayatpendidikan', 	'uses' => 'PersonaliaController@kirimRiwayatPendidikan']);
  	Route::post('personalia/hapusriwayatpendidikan', ['as' => 'personalia.hapusriwayatpendidikan', 	'uses' => 'PersonaliaController@hapusRiwayatPendidikan']);
- 	Route::post('personalia/kirimkontak', ['as' => 'personalia.kirimkontak', 	'uses' => 'PersonaliaController@kirimKontak']);
- 	Route::post('personalia/hapuskontak', ['as' => 'personalia.hapuskontak', 	'uses' => 'PersonaliaController@hapusKontak']);
- 	Route::post('personalia/kirimalamat', ['as' => 'personalia.kirimalamat', 	'uses' => 'PersonaliaController@kirimAlamat']);
- 	Route::post('personalia/hapusalamat', ['as' => 'personalia.hapusalamat', 	'uses' => 'PersonaliaController@hapusAlamat']);
- 	Route::post('personalia/kirimorganisasi', ['as' => 'personalia.kirimorganisasi', 	'uses' => 'PersonaliaController@kirimOrganisasi']);
- 	Route::post('personalia/hapusorganisasi', ['as' => 'personalia.hapusorganisasi', 	'uses' => 'PersonaliaController@hapusOrganisasi']);
+ 	Route::post('personalia/kirimkontak', 			 ['as' => 'personalia.kirimkontak', 			'uses' => 'PersonaliaController@kirimKontak']);
+ 	Route::post('personalia/hapuskontak', 			 ['as' => 'personalia.hapuskontak', 			'uses' => 'PersonaliaController@hapusKontak']);
+ 	Route::post('personalia/kirimalamat', 			 ['as' => 'personalia.kirimalamat', 			'uses' => 'PersonaliaController@kirimAlamat']);
+ 	Route::post('personalia/hapusalamat', 			 ['as' => 'personalia.hapusalamat', 			'uses' => 'PersonaliaController@hapusAlamat']);
+ 	Route::post('personalia/kirimorganisasi', 		 ['as' => 'personalia.kirimorganisasi', 		'uses' => 'PersonaliaController@kirimOrganisasi']);
+ 	Route::post('personalia/hapusorganisasi', 		 ['as' => 'personalia.hapusorganisasi', 		'uses' => 'PersonaliaController@hapusOrganisasi']);
  	//Edit
- 	Route::post('personalia/editnama', ['as' => 'personalia.editnama', 'uses' => 'PersonaliaController@editNama']);
- 	Route::post('personalia/editalias', ['as' => 'personalia.editalias', 'uses' => 'PersonaliaController@editAlias']);
- 	Route::post('personalia/editjk', ['as' => 'personalia.editjk', 'uses' => 'PersonaliaController@editJk']);
- 	Route::post('personalia/edittempatlahir', ['as' => 'personalia.edittempat', 'uses' => 'PersonaliaController@editTempatLahir']);
- 	Route::post('personalia/edittanggallahir', ['as' => 'personalia.edittanggallahir', 'uses' => 'PersonaliaController@editTanggalLahir']);
- 	Route::post('personalia/editpendidikanterakhir', ['as' => 'personalia.editpendidikanterakhir', 'uses' => 'PersonaliaController@editPendidikanTerakhir']);
- 	Route::post('personalia/edittmt', ['as' => 'personalia.edittmt', 'uses' => 'PersonaliaController@editTmt']);
- 	Route::post('personalia/editnomor', ['as' => 'personalia.editnomor', 'uses' => 'PersonaliaController@editNomor']);
+ 	Route::post('personalia/editnama', 					['as' => 'personalia.editnama', 				'uses' => 'PersonaliaController@editNama']);
+ 	Route::post('personalia/editalias', 				['as' => 'personalia.editalias', 				'uses' => 'PersonaliaController@editAlias']);
+ 	Route::post('personalia/editjk', 					['as' => 'personalia.editjk', 					'uses' => 'PersonaliaController@editJk']);
+ 	Route::post('personalia/edittempatlahir', 			['as' => 'personalia.edittempat', 				'uses' => 'PersonaliaController@editTempatLahir']);
+ 	Route::post('personalia/edittanggallahir', 			['as' => 'personalia.edittanggallahir', 		'uses' => 'PersonaliaController@editTanggalLahir']);
+ 	Route::post('personalia/editpendidikanterakhir', 	['as' => 'personalia.editpendidikanterakhir', 	'uses' => 'PersonaliaController@editPendidikanTerakhir']);
+ 	Route::post('personalia/edittmt', 					['as' => 'personalia.edittmt', 					'uses' => 'PersonaliaController@editTmt']);
+ 	Route::post('personalia/editnomor', 				['as' => 'personalia.editnomor', 				'uses' => 'PersonaliaController@editNomor']);
+
+//Pelantikan
+ 	Route::get('pelantikan', ['as' => 'pelantikan.index', 'uses' => 'PelantikanController@index']);
+ 	Route::get('pelantikan/new', ['as' => 'pelantikan.new', 'uses' => 'PelantikanController@create']);
+ 	Route::post('pelantikan/new', ['as' => 'pelantikan.new', 'uses' => 'PelantikanController@store']);
 
 });
