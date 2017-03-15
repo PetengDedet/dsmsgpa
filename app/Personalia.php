@@ -4,6 +4,7 @@ namespace App;
 use Hashids;
 use Illuminate\Database\Eloquent\Model;
 use App\Library\Datify;
+use Carbon\Carbon;
 
 class Personalia extends Model
 {
@@ -20,6 +21,11 @@ class Personalia extends Model
     public function getTempatTanggalLahirAttribute()
     {
         return ucfirst($this->attributes['tempat_lahir']) . ', ' . Datify::readify(substr($this->attributes['tanggal_lahir'], 0, 10));
+    }
+
+    public function getUmurAttribute()
+    {
+        return Carbon::parse($this->attributes['tanggal_lahir'])->age;
     }
 
     public function getTglLahirAttribute($separator = '/') {
@@ -51,5 +57,10 @@ class Personalia extends Model
     public function riwayat_organisasi()
     {
     	return $this->hasMany('\App\RiwayatOrganisasi', 'personalia_id');
+    }
+
+    public function pelantikan()
+    {
+        return $this->hasMany('\App\Pelantikan', 'personalia_id');
     }
 }

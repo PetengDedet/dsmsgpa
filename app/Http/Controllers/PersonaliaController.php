@@ -408,7 +408,9 @@ class PersonaliaController extends Controller
             'message' => ''
         ];
 
-        $personalia = Personalia::findOrFail(Hashids::connection('personalia')->decode($hashid)[0]);
+        $personalia = Personalia::with('pelantikan.lembaga')
+                    ->with('pelantikan.jabatan')
+                    ->findOrFail(Hashids::connection('personalia')->decode($hashid)[0]);
         if (! $personalia) {
             $resp['message'] = 'Personalia tidak valid';
             return response()->json($resp,200);

@@ -3,7 +3,6 @@
 namespace App\DataTables;
 
 use App\Personalia;
-use Carbon\Carbon;
 use Yajra\Datatables\Services\DataTable;
 
 class PersonaliaDataTable extends DataTable
@@ -20,7 +19,7 @@ class PersonaliaDataTable extends DataTable
             ->eloquent($personalia)
             ->editColumn('jk', function($personalia)
             {
-                return (($personalia->jk == 'L') ? '<i class="fa fa-male"></i> ' : '<i class="fa fa-female" style="color:red;"></i> ' ) . Carbon::parse($personalia->tanggal_lahir)->age . 'Th';
+                return (($personalia->jk == 'L') ? '<i class="fa fa-male"></i> ' : '<i class="fa fa-female" style="color:red;"></i> ' ) . $personalia->umur . 'Th';
             })
             ->addColumn('action', function($personalia){
                 return '<div class="dropdown">

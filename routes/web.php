@@ -13,29 +13,44 @@
 
 Route::get('test', function()
 {
-	$p = Carbon\Carbon::parse(\App\Pelantikan::first()->sejak);
-	$t = Carbon\Carbon::parse(\App\Pelantikan::first()->hingga);
-	$dur = $p->diffInDays($t);
-	return $dur;
+	// $p = Carbon\Carbon::parse(\App\Pelantikan::first()->sejak);
+	// $t = Carbon\Carbon::parse(\App\Pelantikan::first()->hingga);
+	// $dur = $p->diffInDays($t);
+	// return $dur;
 	//dd(storage_path('local'));
+	return view('test');
+});
+
+Route::post('test', function(Request $r)
+{
+	$file = request('f');
+    // $filedata = file_get_contents($file);
+    // return $base64 = base64_decode($file);
+    $file = str_replace('data:image/png;base64,', '', $file);
+    $file = str_replace('data:image/jpeg;base64,', '', $file);
+    $file = str_replace('data:image/jpg;base64,', '', $file);
+    $file = str_replace('data:image/gif;base64,', '', $file);
+    $file = str_replace('data:application/pdf;base64,', '', $file);
+    $file = str_replace('data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,', '', $file);
+    $file = str_replace(' ', '+', $file);
+    $gam = base64_decode($file);
+
+    $path = Storage::disk('lap')->put('anu.docx', $gam);
+
+    // return '$path';
+	// return mb_strlen($file);
+
 });
 
 Route::get('/', function () {
+	if (Auth::check()) {
+    	return redirect('dashboard');
+	}
     return view('auth.login');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
-
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index');
 
 Route::get('master', function()
 {
@@ -45,10 +60,8 @@ Route::get('master', function()
 Route::get('personalia/getJSON', ['as' => 'personalia.getJSON', 'uses' => 'PersonaliaController@getJson']);
 
 Route::group(['middleware' => 'Admin'], function(){
-    Route::get('/dashboard', function()
-    {
-    	return view('dashboard');
-    });
+    Route::get('dashboard', 'HomeController@index');
+    Route::get('home', 'HomeController@index');
 //USER
 	Route::get('master/user', 				['as' => 'master.user', 		'uses' => 'UserController@index']);
 	Route::get('master/user/create', 		['as' => 'master.user.create', 	'uses' => 'UserController@create']);
@@ -97,7 +110,10 @@ Route::group(['middleware' => 'Admin'], function(){
 
 //Pelantikan
  	Route::get('pelantikan', ['as' => 'pelantikan.index', 'uses' => 'PelantikanController@index']);
- 	Route::get('pelantikan/new', ['as' => 'pelantikan.new', 'uses' => 'PelantikanController@create']);
- 	Route::post('pelantikan/new', ['as' => 'pelantikan.new', 'uses' => 'PelantikanController@store']);
+ 	Route::get('pelantikan/new', ['as' => 'pelantikan.new.get', 'uses' => 'PelantikanController@create']);
+ 	Route::post('pelantikan/new', ['as' => 'pelantikan.new.post', 'uses' => 'PelantikanController@store']);
+ 	Route::get('pelantikan/lihat/{hashid}', ['as' => 'pelantikan.detail', 'uses' => 'PelantikanController@detail']);
+ 	//Get File preview
+ 	Route::get('attachment/preview/{file}', ['as' => 'preview.file', 'uses' => 'PelantikanController@previewFile']);
 
 });

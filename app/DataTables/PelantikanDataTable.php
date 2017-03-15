@@ -20,11 +20,11 @@ class PelantikanDataTable extends DataTable
             ->editColumn('id', function($pelantikan){
                 return $pelantikan->hashid;
             })
-            ->editColumn('personalia_id', function($pelantikan)
+            ->editColumn('personalia.nama', function($pelantikan)
             {
                 return $pelantikan->personalia->nama . '<br><small>' . $pelantikan->personalia->nomor . '</small>';
             })
-            ->editColumn('jabatan_id', function($pelantikan){
+            ->editColumn('jabatan.nama_jabatan', function($pelantikan){
                 $r = $pelantikan->jabatan->nama_jabatan;
                 if($pelantikan->jabatan->alias_jabatan != null) {
                     $r .= ' (' . $pelantikan->jabatan->alias_jabatan . ')';
@@ -34,7 +34,7 @@ class PelantikanDataTable extends DataTable
 
                 return $r;
             })
-            ->editColumn('lembaga_id', function($pelantikan){
+            ->editColumn('lembaga.nama_lembaga', function($pelantikan){
                 $r = $pelantikan->lembaga->nama_lembaga;
                 if($pelantikan->lembaga->alias != null) {
                     $r .= ' (' . $pelantikan->lembaga->alias . ')';
@@ -56,9 +56,8 @@ class PelantikanDataTable extends DataTable
                                 <i class="fa fa-bars"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li><a href="' . url('master/pelantikan/lihat/' . $pelantikan->hashid) . '"><i class="fa fa-eye"></i> Lihat</a></li>
-                                <li><a href="' . url('master/pelantikan/sunting/' . $pelantikan->hashid) . '"><i class="fa fa-pencil"></i> Sunting</a></li>
-                                <li><a href="' . url('master/pelantikan/hapus/' . $pelantikan->hashid) . '" onclick="return confirm(\'Yakin akan menghapus jabatan ini?\')"><i class="fa fa-trash-o"></i> Hapus</a></li>
+                                <li><a href="' . url('pelantikan/lihat/' . $pelantikan->hashid) . '"><i class="fa fa-eye"></i> Lihat</a></li>
+                                <li><a href="' . url('pelantikan/sunting/' . $pelantikan->hashid) . '"><i class="fa fa-pencil"></i> Sunting</a></li>
                             </ul>
                         </div>';
             })
@@ -72,7 +71,10 @@ class PelantikanDataTable extends DataTable
      */
     public function query()
     {
-        $query = Pelantikan::latest();
+        $query = Pelantikan::with('personalia')->with('jabatan')->with('lembaga')
+                    // ->orderBy('personalia.nama', 'ASC')
+                    // ->orderBy('lembaga.nama_lembaga', 'ASC' )
+                    ->latest();
 
         return $this->applyScopes($query);
     }
@@ -108,23 +110,23 @@ class PelantikanDataTable extends DataTable
                 'searchable' => false
             ],
             [
-                'name' => 'personalia_id', 
+                'name' => 'personalia.nama', 
                 'title' => 'Personalia',
-                'data' => 'personalia_id',
-                'orderable' => true,
+                'data' => 'personalia.nama',
+                'orderable' => false,
                 'searchable' => true
             ],
             [
-                'name' => 'jabatan_id',    
+                'name' => 'jabatan.nama_jabatan',    
                 'title' => 'Jabatan',
-                'data' => 'jabatan_id',
-                'orderable' => true,
-                'searchable' => false
+                'data' => 'jabatan.nama_jabatan',
+                'orderable' => false,
+                'searchable' => true
             ],
             [
-                'name' => 'lembaga_id',    
+                'name' => 'lembaga.nama_lembaga',    
                 'title' => 'Lembaga',
-                'data' => 'lembaga_id',
+                'data' => 'lembaga.nama_lembaga',
                 'orderable' => false,
                 'searchable' => true
             ],

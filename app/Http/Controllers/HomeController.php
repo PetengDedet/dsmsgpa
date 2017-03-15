@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Lembaga;
+use App\Jabatan;
+use App\Personalia;
+use App\Pelantikan;
+
 class HomeController extends Controller
 {
     /**
@@ -23,6 +28,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $lembaga = Lembaga::count();
+        $personalia = Personalia::count();
+        $jabatan = Jabatan::count();
+        $pelantikan = Pelantikan::count();
+
+        return view('dashboard', compact('lembaga', 'personalia', 'jabatan', 'pelantikan'));
     }
 }

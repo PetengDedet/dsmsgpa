@@ -17,14 +17,15 @@ class Pelantikan extends Model
 	}
 
 	public function getPeriodAttribute() {
-		$now = Carbon::now();
+		// $now = Carbon::now();
 
 		$period = [
 			'sejak' => $this->attributes['sejak'],
 			'hingga' => $this->attributes['hingga'],
 			'formatSejak' => Datify::readify(substr($this->attributes['sejak'], 0, 10)),
 			'formatHingga' => Datify::readify(substr($this->attributes['hingga'], 0, 10)),
-			'duration' => Carbon::parse($this->attributes['sejak'])->diffInDays(Carbon::parse($this->attributes['hingga']))
+			'duration' => Carbon::parse($this->attributes['sejak'])->diffInDays(Carbon::parse($this->attributes['hingga'])),
+			'sudahBerlalu' => Carbon::parse($this->attributes['hingga'])->isPast()
 		];
 		
 		return $period;

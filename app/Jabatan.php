@@ -15,4 +15,9 @@ class Jabatan extends Model
     {
         return Hashids::connection('jabatan')->encode($this->attributes['id']);
     }
+
+    public function getFormatJenisAttribute()
+    {
+        return ucwords(str_replace('_', ' ', $this->attributes['jenis_jabatan']));
+    }
 }

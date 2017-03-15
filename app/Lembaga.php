@@ -16,6 +16,11 @@ class Lembaga extends Model
         return Hashids::connection('lembaga')->encode($this->attributes['id']);
     }
 
+    public function getFormatJenisAttribute()
+    {
+        return ucwords(str_replace('_', ' ', $this->attributes['jenis_lembaga']));
+    }
+
     public function menaungi()
     {
     	return $this->hasMany('\App\Lembaga', 'induk_langsung');

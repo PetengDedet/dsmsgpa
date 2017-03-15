@@ -240,7 +240,17 @@
                         </div>
                         <div id="pengabdian" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="pengabdianHeading">
                             <ul class="list-group">
-                                
+                                @forelse($personalia->pelantikan as $k => $v)
+                                    <li class="list-group-item">
+                                        {{$v->hashid}}
+                                        <br>
+                                        {{$v}}
+                                    </li>
+                                @empty
+                                    <li class="list-group-item">
+                                        - Belum ada riwayat pengabdian
+                                    </li>
+                                @endforelse
                             </ul>
                         </div>
                     </div>
@@ -781,6 +791,10 @@
     }
 
     $('.hapus-kontak').on('click', function() {
+        if (! confirm('Hapus kontak ini?')) {
+            return false;
+        }
+
         let obj = $(this);
         $.ajax({
             url: '{{url('personalia/hapuskontak')}}',
@@ -1016,6 +1030,10 @@
     }
 
     $('.hapus-pendidikan').on('click', function() {
+        if (! confirm('Hapus pendidikan ini?')) {
+            return false;
+        }
+
         let obj = $(this);
         $.ajax({
             url: '{{url('personalia/hapusriwayatpendidikan')}}',
@@ -1260,6 +1278,10 @@
     }
 
     $('.hapus-organisasi').on('click', function() {
+        if (! confirm('Hapus riwayat ini?')) {
+            return false;
+        }
+
         let obj = $(this);
         $.ajax({
             url: '{{url('personalia/hapusorganisasi')}}',

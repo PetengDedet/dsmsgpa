@@ -36,4 +36,9 @@
     <script src="{{asset('/js/jquery-datatables.js')}}" type="text/javascript"></script> 
     <script src="{{asset('/js/datatables.js')}}" type="text/javascript"></script>
     {!! $dataTable->scripts() !!}
+    <script type="text/javascript">
+        $(document).ready(function() {
+           $('table').addClass('table-striped');
+        });
+    </script>
 @endsection

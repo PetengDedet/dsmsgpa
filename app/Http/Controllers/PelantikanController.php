@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Validator;
 use Hashids;
 use Session;
-use Carbon\Carbon;
+use Storage;
+use Response;
+use File;
 
 use App\Pelantikan;
 use App\Lembaga;
@@ -17,7 +20,7 @@ use App\DataTables\PelantikanDataTable;
 class PelantikanController extends Controller
 {
     //
-    public function index(PelantikanDataTable $dataTable){
+    public function index(PelantikanDataTable $dataTable) {
         return $dataTable->render('pelantikan.index');
     }
 
@@ -127,5 +130,38 @@ class PelantikanController extends Controller
         
         Session::flash('message', 'Berhasil melantik ' . $personalia->nama . ' sebagai ' . $jabatan->nama_jabatan . ' di ' . $lembaga->nama_lembaga . ' periode ' . $pelantikan->period['formatSejak'] . ' s/d ' . $pelantikan->period['formatHingga'] );
         return redirect(url('pelantikan'));
+    }
+
+    public function detail(Request $r, $hashid) {
+        $id = Hashids::connection('pelantikan')->decode($hashid);
+        if (count($id) == 0) {
+            abort(404);
+        }
+
+        $pelantikan = Pelantikan::with('personalia')
+                        ->with('lembaga')
+                        ->with('jabatan')
+                        ->findOrFail($id[0]);
+
+        $file = [];
+        if (Storage::disk('lap')->exists($pelantikan->dokumen_sk)) {
+            $file['extension'] = collect(explode('.', $pelantikan->dokumen_sk))->last();
+        }
+
+        return view('pelantikan.detail', compact('pelantikan', 'file'));
+    }
+
+    public function previewFile(Request $r, $file = null) {
+        if ($file != null) {
+            $ct['Content-Type'] = File::extension($file);
+            
+            if ($r->dl != null AND $r->dl == 1) {
+                $ct['Content-Type'] = 'application/' . File::extension($file);
+            }
+
+            return Response::make(file_get_contents(storage_path('/uploads/sk/' . $file)), 200, $ct);
+        }
+
+        abort(404);
     }
 }
