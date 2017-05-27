@@ -28,20 +28,7 @@
                     </ul>
                 </div>
             @endif
-            <form role="form" class="form-horizontal" method="post" action="">
-                <div class="form-group">
-                    <label for="type" class="control-label col-md-3">Jenis</label>
-                    <div class="col-md-6">
-                        <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-default active">
-                                <input type="radio" name="jenis_lembaga" value="pendidikan" autocomplete="off" checked> Pendidikan
-                            </label>
-                            <label class="btn btn-default">
-                                <input type="radio" name="jenis_lembaga" value="non_pendidikan" autocomplete="off"> Non Pendidikan
-                            </label>
-                        </div>
-                    </div>
-                </div>
+            <form role="form" class="form-horizontal" method="post" action="" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="nama" class="control-label col-md-3">Nama Lembaga</label>
                     <div class="col-md-6">
@@ -49,29 +36,21 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="alias" class="control-label col-md-3">Alias <small>(Optional)</small></label>
+                    <label for="alias" class="control-label col-md-3">Alias</label>
                     <div class="col-md-6">
                         <input type="text" name="alias" class="form-control">
                     </div>
                 </div>
-                
                 <div class="form-group">
-                    <label for="alamat" class="control-label col-md-3">Alamat <small>(Optional)</small></label>
+                    <label for="nama_pimpinan" class="control-label col-md-3">Nama Pimpinan</label>
                     <div class="col-md-6">
-                        <textarea name="alamat" class="form-control"></textarea>
+                        <input type="text" name="nama_pimpinan" class="form-control">
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <label for="induk" class="control-label col-md-3">Induk Langsung <small>(Optional)</small></label>
+                    <label for="foto_pimpinan" class="control-label col-md-3">Foto Pimpinan</label>
                     <div class="col-md-6">
-                        <select name="induk_langsung" class="form-control">
-                            <option>--Pilih Lembaga--</option>
-                            @forelse($lembaga as $k => $v)
-                                <option value="{{$v->hashid}}">{{$v->nama_lembaga}}</option>
-                            @empty
-                            @endforelse
-                        </select>
+                        <input type="file" name="foto_pimpinan" required>
                     </div>
                 </div>
                 <div class="col-md-6 col-md-offset-3">

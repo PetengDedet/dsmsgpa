@@ -9,19 +9,20 @@ use Session;
 
 use App\DataTables\LembagaDataTable;
 use App\Lembaga;
+use Storage;
 
 class LembagaController extends Controller
 {
     //
     public function index(LembagaDataTable $dataTable)
     {
-    	return $dataTable->render('master.lembaga');
+        return $dataTable->render('master.lembaga');
     }
 
     public function create(Request $request)
     {
-    	$lembaga = Lembaga::all();
-    	return view('master.lembaga-create', compact('lembaga'));
+        $lembaga = Lembaga::all();
+        return view('master.lembaga-create', compact('lembaga'));
     }
 
     public function show($id)
@@ -39,10 +40,10 @@ class LembagaController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'jenis_lembaga' => 'required|in:pendidikan,non_pendidikan',
-            'nama' => 'required|max:255',
-            'alias' => 'max:255',
-            'alamat' => 'max:255'
+            'nama' => 'required|max:100',
+            'alias' => 'max:50',
+            'nama_pimpinan' => 'max:255',
+            'foto_pimpinan' => 'max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -52,17 +53,31 @@ class LembagaController extends Controller
         }
 
         $lembaga = new Lembaga();
-        $lembaga->nama_lembaga = $request->nama;
-        $lembaga->jenis_lembaga = $request->jenis_lembaga;
+        $lembaga->nama = $request->nama;
         $lembaga->alias = $request->alias;
-        $lembaga->alamat = $request->alamat;
+        $lembaga->nama_pimpinan = $request->nama_pimpinan;
 
-        if (null != $request->induk_langsung) {
-            $idInduk = Hashids::connection('lembaga')->decode($request->induk_langsung);
-            if (count($idInduk) > 0) {
-                $induk = Lembaga::findOrFail($idInduk[0]);
-                $lembaga->induk_langsung = $induk->id;
+        //Upload Foto
+        if ($request->hasFile('foto_pimpinan')) {
+
+            $allowedTipe = [
+                'jpg', 'jpeg', 'png', 'gif'
+            ];
+
+            $validFile = in_array(strtolower(pathinfo($request->file('foto_pimpinan')->getClientOriginalName(), PATHINFO_EXTENSION)), $allowedTipe);
+
+            if (!$validFile) {
+                return redirect()->back()->with('errors', '<div class="alert alert-danger">Foto pimpinan harus berupa .png, .jpg, .jpeg, atau .gif</div>');
             }
+
+            $fileName  = 'Foto_Pimpinan_' . str_random(4) . '.';
+            $fileName .= strtolower(pathinfo($request->file('foto_pimpinan')->getClientOriginalName(), PATHINFO_EXTENSION));
+
+            if(!$request->file('foto_pimpinan')->move(public_path() . '/img', $fileName)){
+                return redirect()->back()->with('errors', '<div class="alert alert-danger">Gagal mengunggah foto pimpinan</div>');
+            }
+
+            $lembaga->foto_pimpinan = $fileName;
         }
 
         if ($lembaga->save()) {
@@ -79,7 +94,7 @@ class LembagaController extends Controller
         if (count($id) > 0) {
             $lembaga = Lembaga::findOrFail($id[0]);
         }
-        
+
         $lembagas = Lembaga::all();
         return view('master.lembaga-sunting', compact('lembaga', 'lembagas'));
     }
@@ -94,10 +109,10 @@ class LembagaController extends Controller
         $lembaga = Lembaga::findOrFail($id[0]);
 
         $validator = Validator::make($request->all(), [
-            'jenis_lembaga' => 'required|in:pendidikan,non_pendidikan',
-            'nama' => 'required|max:255',
-            'alias' => 'max:255',
-            'alamat' => 'max:255'
+            'nama' => 'required|max:100',
+            'alias' => 'max:50',
+            'nama_pimpinan' => 'max:255',
+            'foto_pimpinan' => 'max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -106,20 +121,37 @@ class LembagaController extends Controller
             ->withInput();
         }
 
-        $lembaga->nama_lembaga = $request->nama;
-        $lembaga->jenis_lembaga = $request->jenis_lembaga;
+        $lembaga->nama = $request->nama;
         $lembaga->alias = $request->alias;
-        $lembaga->alamat = $request->alamat;
+        $lembaga->nama_pimpinan = $request->nama_pimpinan;
 
-        if (null != $request->induk_langsung && $request->induk_langsung != '0') {
-            $idInduk = Hashids::connection('lembaga')->decode($request->induk_langsung);
-            if (count($idInduk) > 0) {
-                $induk = Lembaga::findOrFail($idInduk[0]);
-                $lembaga->induk_langsung = $induk->id;
+        //Upload Foto
+        if ($request->hasFile('foto_pimpinan')) {
+
+            $allowedTipe = [
+                'jpg', 'jpeg', 'png', 'gif'
+            ];
+
+            $validFile = in_array(strtolower(pathinfo($request->file('foto_pimpinan')->getClientOriginalName(), PATHINFO_EXTENSION)), $allowedTipe);
+
+            if (!$validFile) {
+                return redirect()->back()->with('errors', '<div class="alert alert-danger">Foto pimpinan harus berupa .png, .jpg, .jpeg, atau .gif</div>');
             }
-        }else{
-            $lembaga->induk_langsung = 0;
+
+            $fileName  = 'Foto_Pimpinan_' . str_random(4) . '.';
+            $fileName .= strtolower(pathinfo($request->file('foto_pimpinan')->getClientOriginalName(), PATHINFO_EXTENSION));
+
+            if(!$request->file('foto_pimpinan')->move(public_path() . '/img', $fileName)){
+                return redirect()->back()->with('errors', '<div class="alert alert-danger">Gagal mengunggah foto pimpinan</div>');
+            }
+
+            if (strlen($lembaga->foto_pimpinan) > 0 AND file_exists(public_path() . '/img/' . $lembaga->foto_pimpinan)) {
+                unlink(public_path() . '/img/' . $lembaga->foto_pimpinan);
+            }
+
+            $lembaga->foto_pimpinan = $fileName;
         }
+
 
         if ($lembaga->save()) {
             Session::flash('message', 'Berhasil memperbaharui lembaga');

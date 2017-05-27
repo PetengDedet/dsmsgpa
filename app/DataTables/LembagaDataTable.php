@@ -34,16 +34,13 @@ class LembagaDataTable extends DataTable
                             </ul>
                         </div>';
             })
-            ->editColumn('jenis_lembaga', function($lembaga)
+            ->editColumn('foto_pimpinan', function($lembaga)
             {
-                return strtoupper(str_replace('_', ' ', $lembaga->jenis_lembaga));
-            })
-            ->editColumn('induk_langsung', function($lembaga)
-            {
-                if ($lembaga->naungan != null) {
-                    return $naungan = $lembaga->naungan->alias;
+                $str = '';
+                if (strlen($lembaga->foto_pimpinan) > 0 AND file_exists(public_path() . '/img/' . $lembaga->foto_pimpinan)) {
+                    $str .= '<img src="' . asset('img/' . $lembaga->foto_pimpinan) . '" width="70" height="auto">';
                 }
-                return '-';
+                return $str;
             })
             ->make(true);
     }
@@ -84,9 +81,9 @@ class LembagaDataTable extends DataTable
         return [
             'id',
             'alias',
-            'nama_lembaga',
-            'jenis_lembaga',
-            'induk_langsung'
+            'nama',
+            'nama_pimpinan',
+            'foto_pimpinan'
         ];
     }
 

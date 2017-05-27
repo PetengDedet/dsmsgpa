@@ -18,7 +18,7 @@
                 <div class="container">
                     <div class="navbar-header">
                         <a href="{{ url(config('adminlte.dashboard_url', 'home')) }}" class="navbar-brand">
-                            <b>m</b>SUKOREJO
+                            <b>DSMS</b>GPA
                         </a>
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                             <i class="fa fa-bars"></i>
@@ -36,9 +36,9 @@
             <!-- Logo -->
             <a href="{{ url(config('adminlte.dashboard_url', 'home')) }}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>m</b>Skj</span>
+                <span class="logo-mini"><b>GPA</b></span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>m</b>Sukorejo</span>
+                <span class="logo-lg"><b>DSMS</b>GPA</span>
             </a>
 
             <!-- Header Navbar -->
@@ -88,7 +88,18 @@
 
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu">
-                    @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
+                    @if(Auth::check() AND Auth::user()->type == 'admin')
+                        @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
+
+                        @else
+                        <li class="header">SAJIAN UTAMA</li>
+                            <li class="active">
+                                <a href="{{url('dashboard')}}">
+                                    <i class="fa fa-fw fa-dashboard "></i>
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
+                    @endif
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>
@@ -125,7 +136,9 @@
         <div class="pull-right hidden-xs">
             <b>Versi</b> 0.1
         </div>
-            <strong>Hak Cipta © {{date('Y')}} <a href="http://jumatlegi.com" target="_blank">ikhwanmaftuh</a></strong>
+            <strong>
+                Hak Cipta © {{date('Y')}} <a href="#" target="_blank">Otoritas Jasa Keuangan Republik Indonesia</a>
+            </strong>
         </footer>
 
     </div>

@@ -20,24 +20,14 @@
         </div>
         <div class="box-body">
             <div class="box-body box-profile">
-                <h3 class="profile-username text-center">{{$lembaga->nama_lembaga}}</h3>
+                <h3 class="profile-username text-center">{{$lembaga->nama}}</h3>
                 <p class="text-muted text-center">{{$lembaga->alias}}</p>
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
-                        <b>Tipe</b> <a class="pull-right">{{strtoupper(str_replace('_', ' ', $lembaga->jenis_lembaga))}}</a>
+                        <b>Foto Pimpinan</b> <a class="pull-right">{{$lembaga->foto_pimpinan}}</a>
                     </li>
                     <li class="list-group-item">
-                        <b>Alamat</b> <a class="pull-right">{{$lembaga->alamat}}</a>
-                    </li>
-                    <li class="list-group-item">
-                        <b>Induk Langsung</b>
-                        <a class="pull-right">
-                            @if($lembaga->naungan != null)
-                                {{$lembaga->naungan->alias}}
-                            @else
-                                {{'-'}}
-                            @endif
-                        </a>
+                        <b>Nama Pimpinan</b> <a class="pull-right">{{$lembaga->nama_pimpinan}}</a>
                     </li>
                 </ul>
             </div>

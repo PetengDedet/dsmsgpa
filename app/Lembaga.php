@@ -2,13 +2,14 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Hashids;
+use Illuminate\Database\Eloquent\Model;
 
 class Lembaga extends Model
 {
-    //
     protected $table = 'lembaga';
+    protected $primaryKey = 'id';
+
     protected $appends = ['hashid'];
 
     public function getHashidAttribute()
@@ -16,18 +17,23 @@ class Lembaga extends Model
         return Hashids::connection('lembaga')->encode($this->attributes['id']);
     }
 
-    public function getFormatJenisAttribute()
+    public function anggaran()
     {
-        return ucwords(str_replace('_', ' ', $this->attributes['jenis_lembaga']));
+        return $this->hasMany('\App\Anggaran', 'lembaga_id');
     }
 
-    public function menaungi()
+    public function agenda()
     {
-    	return $this->hasMany('\App\Lembaga', 'induk_langsung');
+        return $this->hasMany('\App\Agenda', 'lembaga_id');
     }
 
-    public function naungan()
+    public function keuangan()
     {
-    	return $this->belongsTo('\App\Lembaga', 'induk_langsung');
+        return $this->hasMany('\App\TjKeuangan', 'lembaga_id');
+    }
+
+    public function disposisi()
+    {
+        return $this->hasMany('\App\Disposisi', 'lembaga_id');
     }
 }

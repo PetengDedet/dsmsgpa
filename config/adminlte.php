@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'mSukorejo',
+    'title' => 'DSMS GPA',
 
     'title_prefix' => '',
 
@@ -120,31 +120,35 @@ return [
             'icon'        => 'dashboard',
         ],
         [
-            'text'        => 'Pelantikan',
-            'url'         => 'pelantikan',
-            'icon'        => 'credit-card-alt',
+            'text'        => 'Anggaran',
+            'url'         => 'anggaran',
+            'icon'        => 'dollar',
         ],
         [
-            'text'        => 'Personalia',
-            'url'         => 'personalia',
-            'icon'        => 'users',
+            'text'        => 'Agenda',
+            'url'         => 'agenda',
+            'icon'        => 'list-ul',
         ],
-        // 'MASTER',
-        // [
-        //     'text' => 'Lembaga',
-        //     'url'  => 'master/lembaga',
-        //     'icon' => 'bank',
-        // ],
-        // [
-        //     'text' => 'Jenis Jabatan',
-        //     'url'  => 'master/jabatan',
-        //     'icon' => 'shield',
-        // ],
-        // [
-        //     'text' => 'Pengguna Aplikasi',
-        //     'url'  => 'master/user',
-        //     'icon' => 'user-secret',
-        // ],
+        [
+            'text'        => 'Temuan Audit',
+            'url'         => 'audit',
+            'icon'        => 'check-square-o',
+        ],
+        [
+            'text'        => 'Tindak Lanjut RDK',
+            'url'         => 'rdk',
+            'icon'        => 'check-square-o',
+        ],
+        [
+            'text'        => 'Keuangan',
+            'url'         => 'keuangan',
+            'icon'        => 'check-square-o',
+        ],
+        [
+            'text'        => 'Disposisi KADEP',
+            'url'         => 'disposisi',
+            'icon'        => 'check-square-o',
+        ],
         [
             'text'    => 'Master',
             'icon'    => 'database',
@@ -155,62 +159,12 @@ return [
                     'icon' => 'bank',
                 ],
                 [
-                    'text' => 'Jenis Jabatan',
-                    'url'  => 'master/jabatan',
-                    'icon' => 'shield',
-                ],
-                [
                     'text' => 'Pengguna Aplikasi',
                     'url'  => 'master/user',
                     'icon' => 'user-secret',
-                ],
-                // [
-                //     'text' => 'Level One',
-                //     'url'  => '#',
-                // ],
-                // [
-                //     'text'    => 'Level One',
-                //     'url'     => '#',
-                //     'submenu' => [
-                //         [
-                //             'text' => 'Level Two',
-                //             'url'  => '#',
-                //         ],
-                //         [
-                //             'text'    => 'Level Two',
-                //             'url'     => '#',
-                //             'submenu' => [
-                //                 [
-                //                     'text' => 'Level Three',
-                //                     'url'  => '#',
-                //                 ],
-                //                 [
-                //                     'text' => 'Level Three',
-                //                     'url'  => '#',
-                //                 ],
-                //             ],
-                //         ],
-                //     ],
-                // ],
-                // [
-                //     'text' => 'Level One',
-                //     'url'  => '#',
-                // ],
+                ]
             ],
         ],
-        // 'LABELS',
-        // [
-        //     'text'       => 'Important',
-        //     'icon_color' => 'red',
-        // ],
-        // [
-        //     'text'       => 'Warning',
-        //     'icon_color' => 'yellow',
-        // ],
-        // [
-        //     'text'       => 'Information',
-        //     'icon_color' => 'aqua',
-        // ],
     ],
 
     /*

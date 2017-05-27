@@ -55,32 +55,32 @@ return [
             'length' => '10',
             'alphabet' => 'LEMBAG1234567890',
         ],
-        'jabatan' => [
+        'anggaran' => [
             'salt' => 'Malikiyaumiddin',
             'length' => '3',
             'alphabet' => 'JABTN1234567890SD',
         ],
-        'personalia' => [
+        'agenda' => [
             'salt' => 'Iyyakana"buduWaiyyakanastain',
             'length' => '6',
             'alphabet' => 'PERSONALI1234567890',
         ],
-        'riwayat_pendidikan' => [
+        'audit' => [
             'salt' => 'Ihdinashhirotholmustaqim',
             'length' => '6',
             'alphabet' => 'RIWAYTPENDK1234567890',
         ],
-        'kontak' => [
+        'rdk' => [
             'salt' => 'Shirothalladzinaanamtaalaihim',
             'length' => '6',
             'alphabet' => 'KONTAkonta1234567890',
         ],
-        'alamat' => [
+        'keuangan' => [
             'salt' => 'GhoirilMaghdlubialaihimwaadldlallin',
             'length' => '6',
             'alphabet' => 'ALMTalmt1234567890',
         ],
-        'riwayat_organisasi' => [
+        'disposisi' => [
             'salt' => 'Robbighfirliwaliwalidayyawalilmukmininaamin',
             'length' => '6',
             'alphabet' => 'RIWAYTOGNS1234567890',
