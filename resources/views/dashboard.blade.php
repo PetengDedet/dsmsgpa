@@ -366,10 +366,10 @@
                 type: 'column'
             },
             title: {
-                text: 'Monthly Average Rainfall'
+                text: 'Status Tindak Lanjut Audit'
             },
             subtitle: {
-                text: 'Source: WorldClimate.com'
+                text: 'Tahun {{date('Y')}}'
             },
             xAxis: {
                 categories: [
@@ -383,7 +383,7 @@
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Rainfall (mm)'
+                    text: 'Jumlah'
                 }
             },
             tooltip: {
@@ -448,7 +448,7 @@
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Rainfall (mm)'
+                    text: 'Jumlah'
                 }
             },
             // tooltip: {
