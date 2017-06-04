@@ -356,7 +356,7 @@
 
     @if (count($audit) > 0) {
         //Audit
-        Highcharts.chart('chart_audit', {
+        var chart = Highcharts.chart('chart_audit', {
             chart: {
                 type: 'column'
             },
@@ -382,13 +382,13 @@
                 }
             },
             // tooltip: {
-            //     headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            //     pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            //         '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-            //     footerFormat: '</table>',
-            //     shared: true,
-            //     useHTML: true
+            //     formatter: function() {
+            //         return 'Triwulan <b>' + this.x + '</b> Pending: is <b>' + this.y + '</b>, in series '+ this.series;
+            //     }
             // },
+            categories: [
+                'Pending', 'Selesai'
+            ],
             plotOptions: {
                 column: {
                     pointPadding: 0.2,
@@ -399,7 +399,7 @@
                 @php
                     $str = '';
                     foreach ($audit as $k => $v) {
-                        $str .= "{name:'Triwulan " . ($k+1) . "',data:[" . $v->pending . "," . $v->selesai . "]},";
+                        $str .= "{name:'Triwulan " . ($k+1) . "',data:[" . $v->pending . "," . $v->selesai . "], pending: ".$v->pending." },";
                     }
 
                     $str = trim($str, ',');
@@ -425,6 +425,8 @@
             ]
         });
     }
+    chart.legend.allItems[0].update({name:'Pending'});
+    chart.legend.allItems[1].update({name:'Selesai'});
     @endif
 
     @if(count($rdk) > 0)

@@ -53,7 +53,7 @@
                         @if(strlen($lembaga->foto_pimpinan) > 0)
                             <img src="{{asset('img/' . $lembaga->foto_pimpinan)}}" width="150" height="auto"><br>
                         @endif
-                        <input type="file" name="foto_pimpinan" required>
+                        <input type="file" name="foto_pimpinan">
                     </div>
                 </div>
                 <div class="col-md-6 col-md-offset-3">
