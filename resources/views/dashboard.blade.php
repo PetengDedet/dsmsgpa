@@ -69,6 +69,7 @@
         <div class="col-md-12">
             &nbsp;
         </div>
+        <div class="row">
 
          @forelse($lembaga as $k => $v)
             <div class="col-md-3">
@@ -139,12 +140,14 @@
             @empty
              -
         @endforelse
+        </div>
         <br>
         <br>
         <div class="col-md-12">
             &nbsp;
         </div>
-        
+
+        <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -178,11 +181,13 @@
                 </div>
             </div>
         </div>
+        </div>
         <br>
         <br>
         <div class="col-md-12">
             &nbsp;
         </div>
+        <div class="row">
         
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -194,12 +199,13 @@
                 </div>
             </div>
         </div>
-
+</div>
         <br>
         <br>
         <div class="col-md-12">
             &nbsp;
         </div>
+        <div class="row">
 
         <div class="col-md-6">
             <div class="panel panel-default">
@@ -228,6 +234,7 @@
                     @endif
                 </div>
             </div>
+        </div>
         </div>
         <br>
         <br>
