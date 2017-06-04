@@ -360,25 +360,23 @@
         @empty
     
     @endforelse
-
-    @if (count($audit) > 0) {
-        //Audit
-        var chart = Highcharts.chart('chart_audit', {
+    @if (count($audit) > 0) 
+       Highcharts.chart('chart_audit', {
             chart: {
                 type: 'column'
             },
             title: {
-                text: 'Status Tindak Lanjut Audit'
+                text: 'Monthly Average Rainfall'
             },
             subtitle: {
-                text: 'Tahun {{date('Y')}}'
+                text: 'Source: WorldClimate.com'
             },
             xAxis: {
                 categories: [
-                    'Triwulan I',
-                    'Triwulan II',
-                    'Triwulan III',
-                    'Triwulan IV'
+                    'Triwulan 1',
+                    'Triwulan 2',
+                    'Triwulan 3',
+                    'Triwulan 4'
                 ],
                 crosshair: true
             },
@@ -388,52 +386,46 @@
                     text: 'Rainfall (mm)'
                 }
             },
-            // tooltip: {
-            //     formatter: function() {
-            //         return 'Triwulan <b>' + this.x + '</b> Pending: is <b>' + this.y + '</b>, in series '+ this.series;
-            //     }
-            // },
-            categories: [
-                'Pending', 'Selesai'
-            ],
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
             plotOptions: {
                 column: {
                     pointPadding: 0.2,
                     borderWidth: 0
                 }
             },
-            series: [
-                @php
-                    $str = '';
-                    foreach ($audit as $k => $v) {
-                        $str .= "{name:'Triwulan " . ($k+1) . "',data:[" . $v->pending . "," . $v->selesai . "], pending: ".$v->pending." },";
-                    }
+            series: [{
+                name: 'Pending',
+                data: [
+                    @php
+                        $pending = '';
+                        foreach ($audit as $key => $value) {
+                            $pending .= $value->pending . ',';
+                        }
 
-                    $str = trim($str, ',');
-                    echo $str;
-                @endphp
-            // {
-            //     name: 'Tokyo',
-            //     data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+                        echo trim($pending, ',');
+                    @endphp
+                ]
+            }, {
+                name: 'Selesai',
+                data: [
+                    @php
+                        $selesai = '';
+                        foreach ($audit as $key => $value) {
+                            $selesai .= $value->selesai . ',';
+                        }
 
-            // }, {
-            //     name: 'New York',
-            //     data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
-
-            // }, {
-            //     name: 'London',
-            //     data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
-
-            // }, {
-            //     name: 'Berlin',
-            //     data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
-
-            // }
-            ]
+                        echo trim($selesai, ',');
+                    @endphp
+                ]
+            }]
         });
-    }
-    chart.legend.allItems[0].update({name:'Pending'});
-    chart.legend.allItems[1].update({name:'Selesai'});
     @endif
 
     @if(count($rdk) > 0)
