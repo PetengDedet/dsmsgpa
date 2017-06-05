@@ -38,8 +38,10 @@
             -
         @endforelse
     </div>
-        <br>
         <div class="row">
+        <div class="col-md-12">
+        <h3>Realisasi Anggaran</h3>
+        </div>
         @forelse($lembaga as $k => $v)
             <div class="col-md-3">
                 @php
@@ -148,10 +150,10 @@
         </div>
 
         <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4>Pertanggungjawaban Dokumen Keuangan {{date('F')}} {{date('Y')}}</h4>
+                    <h4>Pertanggungjawaban Dokumen Keuangan Periode {{date('F')}} {{date('Y')}}</h4>
                 </div>
                 <div class="panel-body">
                     @forelse($lembaga as $k => $v)
@@ -181,18 +183,11 @@
                 </div>
             </div>
         </div>
-        </div>
-        <br>
-        <br>
-        <div class="col-md-12">
-            &nbsp;
-        </div>
-        <div class="row">
         
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4>Disposisi KADEP {{date('F')}} {{date('Y')}}</h4>
+                    <h4>Disposisi Kepala Departemen Periode {{date('F')}} {{date('Y')}}</h4>
                 </div>
                 <div class="panel-body">
                     <div id="chart_disposisi"></div>
@@ -210,7 +205,7 @@
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4>Status Tindak Lanjut Audit</h4>
+                    <h4>Status Penyelesaian Tindak Lanjut Audit</h4>
                 </div>
                 <div class="panel-body">
                     @if(count($audit) > 0)
@@ -224,7 +219,7 @@
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4>Penyelesaian Tindak Lanjut RDK</h4>
+                    <h4>Status Penyelesaian Tindak Lanjut RDK </h4>
                 </div>
                 <div class="panel-body">
                     @if(count($rdk) > 0)
@@ -366,7 +361,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Status Tindak Lanjut Audit'
+                text: 'Status Penyelesaian Tindak Lanjut Audit'
             },
             subtitle: {
                 text: 'Tahun {{date('Y')}}'
@@ -434,7 +429,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Penyelesaian Tindak Lanjut RDK'
+                text: 'Status Penyelesaian Tindak Lanjut RDK'
             },
             subtitle: {
                 text: 'Bulan {{date('F')}} {{date('Y')}}'
@@ -481,7 +476,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Disposisi KADEP'
+                text: 'Disposisi Kepala Departemen'
             },
             subtitle: {
                 text: 'Bulan {{date('F Y')}}'
