@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>DSMS GPA</title>
+	<title>DMSPGPA GPA</title>
 	<script src="{{asset('js/jquery-3.1.1.js')}}"></script>
 	<link rel="stylesheet" type="text/css" href="{{asset('semantic')}}/semantic.min.css">
 	<script src="{{asset('semantic')}}/semantic.min.js"></script>

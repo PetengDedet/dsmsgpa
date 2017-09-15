@@ -16,7 +16,7 @@
                 $bg = ['bg-red', 'bg-aqua', 'bg-green', 'bg-yellow'];
             @endphp
 
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="info-box {{$bg[$k]}}">
                     @if(strlen($v->foto_pimpinan) > 0)
                         <span class="info-box-icon">
@@ -43,7 +43,7 @@
         <h3>Realisasi Anggaran</h3>
         </div>
         @forelse($lembaga as $k => $v)
-            <div class="col-md-3">
+            <div class="col-md-4">
                 @php
                     $panelClass = ['danger', 'info', 'success', 'warning'];
                 @endphp
@@ -74,7 +74,7 @@
         <div class="row">
 
          @forelse($lembaga as $k => $v)
-            <div class="col-md-3">
+            <div class="col-md-4">
                 @php
                     $panelClass = ['danger', 'info', 'success', 'warning'];
                 @endphp

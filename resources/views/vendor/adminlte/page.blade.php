@@ -18,7 +18,7 @@
                 <div class="container">
                     <div class="navbar-header">
                         <a href="{{ url(config('adminlte.dashboard_url', 'home')) }}" class="navbar-brand">
-                            <b>DSMS</b>GPA
+                            <b>DMSP</b>GPA
                         </a>
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                             <i class="fa fa-bars"></i>
@@ -38,7 +38,7 @@
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>GPA</b></span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>DSMS</b>GPA</span>
+                <span class="logo-lg"><b>DMSP</b>GPA</span>
             </a>
 
             <!-- Header Navbar -->
