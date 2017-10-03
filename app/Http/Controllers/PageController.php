@@ -91,7 +91,7 @@ class PageController extends Controller
             return redirect()->back()->with($validation->errors);
         }
 
-        $anggaran = Agenda::updateOrCreate(
+        $anggaran = Agenda::create(
             [
                 'lembaga_id' => $r->lembaga
             ],
