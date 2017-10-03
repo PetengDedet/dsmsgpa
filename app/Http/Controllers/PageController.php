@@ -91,16 +91,13 @@ class PageController extends Controller
             return redirect()->back()->with($validation->errors);
         }
 
-        $anggaran = Agenda::create(
-            [
-                'lembaga_id' => $r->lembaga
-            ],
-            [
-                'tahun' => $r->tahun,
-                'bulan' => $r->bulan,
-                'agenda' => $r->agenda
-            ]
-        );
+       
+        $anggaran = Agenda::create([
+            'lembaga_id' => $r->lembaga,            
+            'tahun' => $r->tahun,
+            'bulan' => $r->bulan,
+            'agenda' => $r->agenda
+        ]);
 
         return redirect()->back()->with('msg', 'Berhasil menyimpan');
     }
