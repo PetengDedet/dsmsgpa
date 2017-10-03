@@ -132,7 +132,7 @@
                             $agenda[$k] = $v->agenda->where('tahun', date('Y'))->where('bulan', date('n'));
                             if (count($agenda[$k]) > 0) {
                                 foreach ($agenda[$k] as $key => $value) {
-                                    echo '<i class="fa fa-check"></i>&nbsp;' . $value->agenda;
+                                    echo '<i class="fa fa-check"></i>&nbsp;' . $value->agenda . '<br>';
                                 }
                             }
                         @endphp
